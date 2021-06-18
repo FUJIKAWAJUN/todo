@@ -73,8 +73,6 @@ class TaskController extends Controller
     {
         $this->checkRelation($folder, $task);
 
-        $task = Task::find($task_id);
-
         return view('tasks/edit', [
             'task' => $task,
         ]);
@@ -100,7 +98,12 @@ class TaskController extends Controller
             'id' => $task->folder_id,
         ]);
     }
-
+    
+    /**
+     * フォルダとタスクの関連性があるか調べる
+     * @param Folder $folder
+     * @param Task $task
+     */
     private function checkRelation(Folder $folder, Task $task) {
         if ($folder->id !== $task->folder_id) {
             abort(404);           
